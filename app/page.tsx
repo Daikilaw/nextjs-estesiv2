@@ -1,5 +1,33 @@
 import Image from "next/image";
 
+// app/page.tsx
+import { fetchPosts } from '../lib/api';
+
+type Post = {
+  id: number;
+  title: {
+    rendered: string;
+  };
+};
+
+const Page = async () => {
+  const posts: Post[] = await fetchPosts();
+
+  return (
+    <div>
+      <h1>Posts</h1>
+      <ul>
+        {posts.map((post) => (
+          <li key={post.id}>{post.title.rendered}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default Page;
+
+
 export default function Home() {
 
   return (
