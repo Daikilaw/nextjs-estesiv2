@@ -1,4 +1,4 @@
-// lib/api.js
+// lib/api.ts
 import axios from 'axios';
 
 const API_URL = 'https://next.adriandesouza.com';
