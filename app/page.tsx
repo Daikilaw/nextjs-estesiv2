@@ -1,6 +1,26 @@
 import Image from "next/image";
 
 export default function Home() {
+  
+  // Get the first 20 posts from WordPress, ordered by the date
+export async function getAllPostsFromWordPress(preview) {
+  const data = await fetchAPI(`
+    query AllPosts {
+      posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
+        edges {
+          node {
+            title
+            excerpt
+            slug
+            date
+          }
+        }
+      }
+    }
+  `)
+
+  return data.posts
+}
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -112,22 +132,3 @@ export default function Home() {
   );
 }
 
-// Get the first 20 posts from WordPress, ordered by the date
-export async function getAllPostsFromWordPress(preview) {
-  const data = await fetchAPI(`
-    query AllPosts {
-      posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
-        edges {
-          node {
-            title
-            excerpt
-            slug
-            date
-          }
-        }
-      }
-    }
-  `)
-
-  return data.posts
-}
